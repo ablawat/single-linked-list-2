@@ -11,6 +11,7 @@
     int LinkedListIntAddFirst(LinkedListInt **list, Value *value);
     void LinkedListIntRemoveFirst(LinkedListInt **list);
     void LinkedListIntClear(LinkedListInt **list);
+    void LinkedListIntSort(LinkedListInt **list);
     
     void LinkedListIntPrint(LinkedListInt **list);
     

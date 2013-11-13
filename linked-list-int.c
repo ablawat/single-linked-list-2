@@ -3,6 +3,8 @@
 #include "value.h"
 #include "linked-list-int.h"
 
+int ValueCompare(const void *value1, const void *value2);
+
 // Tworzy listę dowiązaniową
 // -------------------------
 LinkedListInt ** LinkedListIntCreate()
@@ -84,6 +86,54 @@ void LinkedListIntClear(LinkedListInt **list)
     list[0] = NULL;
 }
 
+// Sortuje elementy listy
+// ----------------------
+void LinkedListIntSort(LinkedListInt **list)
+{
+    LinkedListInt *tmpValue;
+    Value **listVector;
+    
+    unsigned int listCount;
+    unsigned int i;
+
+    listCount = 0;
+    tmpValue = list[0];
+
+    while (tmpValue != NULL)
+    {
+        listCount += 1;
+        tmpValue = tmpValue -> next;
+    }
+
+    listVector = malloc(sizeof(Value *) * listCount);
+
+    i = 0;
+    tmpValue = list[0];
+
+    while (tmpValue != NULL)
+    {
+        listVector[i] = tmpValue -> value;
+
+        i += 1;
+        tmpValue = tmpValue -> next;
+    }
+
+    qsort(listVector, listCount, sizeof(Value *), ValueCompare);
+
+    i = 0;
+    tmpValue = list[0];
+
+    while (tmpValue != NULL)
+    {
+        tmpValue -> value = listVector[i];
+
+        i += 1;
+        tmpValue = tmpValue -> next;
+    }
+
+    free(listVector);
+}
+
 // Wyświetla zawartość listy
 // -------------------------
 void LinkedListIntPrint(LinkedListInt **list)
@@ -99,4 +149,21 @@ void LinkedListIntPrint(LinkedListInt **list)
         printf("|");
         tmpValue = tmpValue -> next;
     }
+}
+
+int ValueCompare(const void *value1, const void *value2)
+{
+    int result;
+    
+    int number1 = ((Value *)value1) -> number;
+    int number2 = ((Value *)value2) -> number;
+    
+    if (number1 < number2)
+        result = -1;
+    else if (number1 == number2)
+        result = 0;
+    else
+        result = 1;
+
+    return result;
 }
