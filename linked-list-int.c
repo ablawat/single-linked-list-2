@@ -9,7 +9,7 @@ int ValueCompare(const void *value1, const void *value2);
 // -------------------------
 LinkedListInt ** LinkedListIntCreate()
 {
-    LinkedListInt **list = malloc(2 * sizeof(LinkedListInt *));
+    LinkedListInt **list = malloc(2 * sizeof(LinkedListInt *) + sizeof(unsigned long));
     list[0] = NULL;
     list[1] = 0;
     
