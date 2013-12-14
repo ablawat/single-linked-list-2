@@ -3,7 +3,25 @@
 #include "value.h"
 #include "linked-list-int.h"
 
-int ValueCompare(const void *value1, const void *value2);
+int ValueCompare(const void *value1, const void *value2)
+{
+    int result;
+    
+    Value **a1 = (Value **)value1;
+    Value **a2 = (Value **)value2;
+    
+    int number1 = (*a1) -> number;
+    int number2 = (*a2) -> number;
+    
+    if (number1 < number2)
+        result = -1;
+    else if (number1 == number2)
+        result = 0;
+    else
+        result = 1;
+    
+    return result;
+}
 
 // Tworzy listę dowiązaniową
 // -------------------------
@@ -60,12 +78,14 @@ void LinkedListIntRemoveFirst(LinkedListInt **list)
     {
         if (list[0] -> next == NULL)
         {
+            free(list[0] -> value);
             free(list[0]);
             list[0] = NULL;
         }
         else
         {
             tmpValue = list[0] -> next;
+            free(list[0] -> value);
             free(list[0]);
             list[0] = tmpValue;
         }
@@ -85,6 +105,7 @@ void LinkedListIntClear(LinkedListInt **list)
     {
         toRemove = tmpValue;
         tmpValue = tmpValue -> next;
+        free(toRemove -> value);
         free(toRemove);
     }
     
@@ -150,21 +171,4 @@ void LinkedListIntPrint(LinkedListInt **list)
     }
     
     printf(" Count = %lu", (unsigned long)list[1]);
-}
-
-int ValueCompare(const void *value1, const void *value2)
-{
-    int result;
-    
-    int number1 = ((Value *)value1) -> number;
-    int number2 = ((Value *)value2) -> number;
-    
-    if (number1 < number2)
-        result = -1;
-    else if (number1 == number2)
-        result = 0;
-    else
-        result = 1;
-
-    return result;
 }

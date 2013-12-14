@@ -5,38 +5,22 @@
 
 int main()
 {
-    Value *value1 = malloc(sizeof(Value));
-    Value *value2 = malloc(sizeof(Value));
-    Value *value3 = malloc(sizeof(Value));
-    Value *value4 = malloc(sizeof(Value));
-    Value *value5 = malloc(sizeof(Value));
-    Value *value6 = malloc(sizeof(Value));
-
-    value1 -> number = 1;
-    value2 -> number = 2;
-    value3 -> number = 3;
-    value4 -> number = 4;
-    value5 -> number = 5;
-    value6 -> number = 6;
+    Value *value;
     
     LinkedListInt **list = LinkedListIntCreate();
     
     LinkedListIntPrint(list);
     putchar(10);
     
-    LinkedListIntAddFirst(list, value1);
+    value = malloc(sizeof(Value));
+    value -> number = 1;
+    LinkedListIntAddFirst(list, value);
     LinkedListIntPrint(list);
     putchar(10);
     
-    LinkedListIntAddFirst(list, value2);
-    LinkedListIntPrint(list);
-    putchar(10);
-    
-    LinkedListIntRemoveFirst(list);
-    LinkedListIntPrint(list);
-    putchar(10);
-    
-    LinkedListIntAddFirst(list, value3);
+    value = malloc(sizeof(Value));
+    value -> number = 2;
+    LinkedListIntAddFirst(list, value);
     LinkedListIntPrint(list);
     putchar(10);
     
@@ -44,15 +28,29 @@ int main()
     LinkedListIntPrint(list);
     putchar(10);
     
+    value = malloc(sizeof(Value));
+    value -> number = 3;
+    LinkedListIntAddFirst(list, value);
+    LinkedListIntPrint(list);
+    putchar(10);
+    
     LinkedListIntRemoveFirst(list);
     LinkedListIntPrint(list);
     putchar(10);
     
-    LinkedListIntAddFirst(list, value3);
+    LinkedListIntRemoveFirst(list);
     LinkedListIntPrint(list);
     putchar(10);
     
-    LinkedListIntAddFirst(list, value1);
+    value = malloc(sizeof(Value));
+    value -> number = 3;
+    LinkedListIntAddFirst(list, value);
+    LinkedListIntPrint(list);
+    putchar(10);
+    
+    value = malloc(sizeof(Value));
+    value -> number = 1;
+    LinkedListIntAddFirst(list, value);
     LinkedListIntPrint(list);
     putchar(10);
     
@@ -60,27 +58,39 @@ int main()
     LinkedListIntPrint(list);
     putchar(10);
 
-    LinkedListIntAddFirst(list, value4);
+    value = malloc(sizeof(Value));
+    value -> number = 4;
+    LinkedListIntAddFirst(list, value);
     LinkedListIntPrint(list);
     putchar(10);
 
-    LinkedListIntAddFirst(list, value6);
+    value = malloc(sizeof(Value));
+    value -> number = 6;
+    LinkedListIntAddFirst(list, value);
     LinkedListIntPrint(list);
     putchar(10);
 
-    LinkedListIntAddFirst(list, value5);
+    value = malloc(sizeof(Value));
+    value -> number = 2;
+    LinkedListIntAddFirst(list, value);
     LinkedListIntPrint(list);
     putchar(10);
     
-    LinkedListIntAddFirst(list, value2);
+    value = malloc(sizeof(Value));
+    value -> number = 5;
+    LinkedListIntAddFirst(list, value);
     LinkedListIntPrint(list);
     putchar(10);
     
-    LinkedListIntAddFirst(list, value1);
+    value = malloc(sizeof(Value));
+    value -> number = 1;
+    LinkedListIntAddFirst(list, value);
     LinkedListIntPrint(list);
     putchar(10);
 
-    LinkedListIntAddFirst(list, value3);
+    value = malloc(sizeof(Value));
+    value -> number = 3;
+    LinkedListIntAddFirst(list, value);
     LinkedListIntPrint(list);
     putchar(10);
 
