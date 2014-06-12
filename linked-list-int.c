@@ -1,62 +1,41 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "value.h"
+#include "data.h"
 #include "linked-list-int.h"
-
-int ValueCompare(const void *value1, const void *value2)
-{
-    int result;
-    
-    Value **a1 = (Value **)value1;
-    Value **a2 = (Value **)value2;
-    
-    int number1 = (*a1) -> number;
-    int number2 = (*a2) -> number;
-    
-    if (number1 < number2)
-        result = -1;
-    else if (number1 == number2)
-        result = 0;
-    else
-        result = 1;
-    
-    return result;
-}
 
 // Tworzy listę dowiązaniową
 // -------------------------
-LinkedListInt ** LinkedListIntCreate()
+linked_list_data_t ** linked_list_data_create()
 {
-    LinkedListInt **list = malloc(2 * sizeof(LinkedListInt *) + sizeof(unsigned long));
+    linked_list_data_t **list = malloc(sizeof(linked_list_data_t *) * 2);
     list[0] = NULL;
-    list[1] = 0;
+    list[1] = NULL;
     
     return list;
 }
 
 // Dodaje element na początek listy
 // --------------------------------
-int LinkedListIntAddFirst(LinkedListInt **list, Value *value)
+int linked_list_data_add_first(linked_list_data_t **list, data_t *value)
 {
-    LinkedListInt *newValue = malloc(sizeof(LinkedListInt));
+    linked_list_data_t *new_value = malloc(sizeof(linked_list_data_t));
     int result;
     
-    if (newValue != NULL)
+    if (new_value != NULL)
     {
-        newValue -> value = value;
+        new_value -> value = value;
         
         if (list[0] == NULL)
         {
-            newValue -> next = NULL;
-            list[0] = newValue;
+            new_value -> next = NULL;
+            list[0] = new_value;
+            list[1] = new_value;
         }
         else
         {
-            newValue -> next = list[0];
-            list[0] = newValue;
+            new_value -> next = list[0];
+            list[0] = new_value;
         }
-        
-        list[1] = (LinkedListInt *)((unsigned long)list[1] + 1);
         
         result = 0;
     }
@@ -68,107 +47,73 @@ int LinkedListIntAddFirst(LinkedListInt **list, Value *value)
     return result;
 }
 
-// Usuwa element z początku listy
-// ------------------------------
-void LinkedListIntRemoveFirst(LinkedListInt **list)
+// Dodaje element na koniec listy
+// --------------------------------
+int linked_list_data_add_last(linked_list_data_t **list, data_t *value)
 {
-    LinkedListInt *tmpValue;
+    linked_list_data_t *new_value = malloc(sizeof(linked_list_data_t));
+    int result;
     
-    if (list[0] != NULL)
+    if (new_value != NULL)
     {
-        if (list[0] -> next == NULL)
+        new_value -> value = value;
+        new_value -> next  = NULL;
+        
+        if (list[0] == NULL)
         {
-            free(list[0] -> value);
-            free(list[0]);
-            list[0] = NULL;
+            list[0] = new_value;
+            list[1] = new_value;
         }
         else
         {
-            tmpValue = list[0] -> next;
-            free(list[0] -> value);
-            free(list[0]);
-            list[0] = tmpValue;
+            list[1] -> next = new_value;
+            list[1] = new_value;
         }
         
-        list[1] = (LinkedListInt *)((unsigned long)list[1] - 1);
+        result = 0;
     }
+    else
+    {
+        result = -1;
+    }
+    
+    return result;
 }
 
 // Usuwa wszystkie elementy listy
 // ------------------------------
-void LinkedListIntClear(LinkedListInt **list)
+void linked_list_data_clear(linked_list_data_t **list)
 {
-    LinkedListInt *tmpValue = list[0];
-    LinkedListInt *toRemove;
+    linked_list_data_t *tmp_value = list[0];
+    linked_list_data_t *to_remove;
     
-    while (tmpValue != NULL)
+    while (tmp_value != NULL)
     {
-        toRemove = tmpValue;
-        tmpValue = tmpValue -> next;
-        free(toRemove -> value);
-        free(toRemove);
+        to_remove = tmp_value;
+        tmp_value = tmp_value -> next;
+        free(to_remove -> value);
+        free(to_remove);
     }
     
     list[0] = NULL;
-    list[1] = 0;
-}
-
-// Sortuje elementy listy
-// ----------------------
-void LinkedListIntSort(LinkedListInt **list)
-{
-    LinkedListInt *tmpValue;
-    Value **listVector;
-    
-    unsigned long listCount;
-    unsigned int i;
-
-    listCount = (unsigned long)list[1];
-
-    listVector = malloc(sizeof(Value *) * listCount);
-
-    i = 0;
-    tmpValue = list[0];
-
-    while (tmpValue != NULL)
-    {
-        listVector[i] = tmpValue -> value;
-
-        i += 1;
-        tmpValue = tmpValue -> next;
-    }
-
-    qsort(listVector, listCount, sizeof(Value *), ValueCompare);
-
-    i = 0;
-    tmpValue = list[0];
-
-    while (tmpValue != NULL)
-    {
-        tmpValue -> value = listVector[i];
-
-        i += 1;
-        tmpValue = tmpValue -> next;
-    }
-
-    free(listVector);
+    list[1] = NULL;
 }
 
 // Wyświetla zawartość listy
 // -------------------------
-void LinkedListIntPrint(LinkedListInt **list)
+void linked_list_data_print(linked_list_data_t **list)
 {
-    LinkedListInt *tmpValue = list[0];
+    linked_list_data_t *tmp_value = list[0];
     
     printf("L");
     
-    while (tmpValue != NULL)
+    while (tmp_value != NULL)
     {
         printf("-|");
-        printf("%d", tmpValue -> value -> number);
+        printf("%d", tmp_value -> value -> value1);
+        printf(",");
+        printf("%d", tmp_value -> value -> value2);
         printf("|");
-        tmpValue = tmpValue -> next;
+        tmp_value = tmp_value -> next;
     }
-    
-    printf(" Count = %lu", (unsigned long)list[1]);
 }
