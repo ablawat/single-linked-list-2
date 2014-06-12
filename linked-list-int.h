@@ -1,20 +1,19 @@
-#ifndef LINKED_LIST_INT
+#ifndef LINKED_LIST_INT_H
+#define LINKED_LIST_INT_H
 
-    typedef struct linkedListInt
-    {
-        Value                   *value;
-        struct linkedListInt    *next;
-    }
-    LinkedListInt;
-    
-    LinkedListInt ** LinkedListIntCreate();
-    int  LinkedListIntAddFirst(LinkedListInt **list, Value *value);
-    void LinkedListIntRemoveFirst(LinkedListInt **list);
-    void LinkedListIntClear(LinkedListInt **list);
-    void LinkedListIntSort(LinkedListInt **list);
-    
-    void LinkedListIntPrint(LinkedListInt **list);
-    
-    #define LINKED_LIST_INT
+typedef struct linked_list_data
+{
+    data_t                   *value;
+    struct linked_list_data  *next;
+}
+linked_list_data_t;
+
+linked_list_data_t ** linked_list_data_create();
+
+int   linked_list_data_add_first  (linked_list_data_t **list, data_t *value);
+int   linked_list_data_add_last   (linked_list_data_t **list, data_t *value);
+
+void  linked_list_data_clear      (linked_list_data_t **list);
+void  linked_list_data_print      (linked_list_data_t **list);
 
 #endif
