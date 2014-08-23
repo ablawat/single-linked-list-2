@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "data.h"
-#include "linked-list-int.h"
+#include "linked-list-data.h"
 
 // Tworzy listę dowiązaniową
 // -------------------------
